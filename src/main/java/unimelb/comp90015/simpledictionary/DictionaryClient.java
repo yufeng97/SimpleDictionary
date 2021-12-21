@@ -41,6 +41,7 @@ public class DictionaryClient extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("client-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 615, 400);
         stage.setScene(scene);
+        ClientController controller = fxmlLoader.<ClientController>getController();
         stage.show();
     }
 }

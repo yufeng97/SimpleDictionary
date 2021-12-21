@@ -19,4 +19,8 @@ public class ClientController {
     protected void onSearchButtonClick() {
         resultBox.setText("Welcome to JavaFX Application!");
     }
+
+    public void setData(String string) {
+        resultBox.setText(string);
+    }
 }
