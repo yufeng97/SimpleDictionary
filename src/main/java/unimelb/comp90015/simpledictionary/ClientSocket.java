@@ -13,6 +13,7 @@ public class ClientSocket {
 
     public ClientSocket(String host, int port) throws IOException {
         this.socket = new Socket(host, port);
+        System.out.println("Connect to server " + host + ":" + port);
         is = socket.getInputStream();
         os = socket.getOutputStream();
     }
