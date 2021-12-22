@@ -33,7 +33,8 @@ public class DictionaryServer {
 
     private static void checkArgs(String[] args) {
         if (args.length < 2) {
-            System.out.println("");
+            System.out.println("command line should be in format:\n" +
+                    "java –jar DictionaryServer.jar <port> <dictionary-file>");
             System.exit(1);
         }
         System.out.println(Arrays.toString(args));

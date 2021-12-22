@@ -25,7 +25,8 @@ public class DictionaryClient extends Application {
 
     private static void checkArgs(String[] args) {
         if (args.length < 2) {
-            System.out.println("");
+            System.out.println("command line should be in format:\n" +
+            "java –jar DictionaryClient.jar <server-address> <server-port>");
             System.exit(1);
         }
         serverAddress = args[0];
