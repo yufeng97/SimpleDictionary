@@ -25,6 +25,7 @@ public class DictionaryServer {
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Connected from: " + socket.getRemoteSocketAddress());
+
             }
         } catch (IOException e) {
             e.printStackTrace();

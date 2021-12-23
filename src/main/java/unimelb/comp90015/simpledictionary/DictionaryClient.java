@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.List;
-import java.util.Map;
 
 public class DictionaryClient extends Application {
     private static String serverHost;
@@ -16,7 +15,6 @@ public class DictionaryClient extends Application {
     private static ClientSocket client;
 
     public static void main(String[] args) {
-        checkArgs(args);
         launch(args);
     }
 
@@ -34,17 +32,29 @@ public class DictionaryClient extends Application {
         }
     }
 
+    private void checkArgs(List<String> args) {
+        if (args.size() < 2) {
+            Utils.showErrorMsg("Command line should be in format:\n" +
+                    "java –jar DictionaryClient.jar <server-address> <server-port>");
+            System.exit(1);
+        }
+        serverHost = args.get(0);
+        try {
+            port = Integer.parseInt(args.get(1));
+        } catch (NumberFormatException e) {
+            Utils.showErrorMsg("Fail to parse port number, please check the parameter you input!\n\n" +
+                    "Command line should be in format:\n" +
+                    "java –jar DictionaryClient.jar <server-address> <server-port>");
+            System.exit(1);
+        }
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         Parameters p = this.getParameters();
-        Map<String, String> namedParams = p.getNamed();
         List<String> unnamedParams = p.getUnnamed();
-        List<String> rawParams = p.getRaw();
+        checkArgs(unnamedParams);
 
-        String paramStr = "Named Parameters: " + namedParams + "\n" +
-                "Unnamed Parameters: " + unnamedParams + "\n" +
-                "Raw Parameters: " + rawParams;
-        System.out.println(paramStr);
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("client-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 615, 400);
         stage.setScene(scene);
@@ -52,8 +62,8 @@ public class DictionaryClient extends Application {
         try {
             client = new ClientSocket(serverHost, port);
         } catch (ConnectException e) {
-            System.out.println("Could not connect to server " + serverHost + ":" + port);
             Utils.showErrorMsg("Could not connect to server " + serverHost + ":" + port);
+            System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();
         }
