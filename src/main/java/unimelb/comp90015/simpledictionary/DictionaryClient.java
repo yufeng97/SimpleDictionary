@@ -18,33 +18,16 @@ public class DictionaryClient extends Application {
         launch(args);
     }
 
-    private static void checkArgs(String[] args) {
-        if (args.length < 2) {
-            System.out.println("command line should be in format:\n" +
-            "java –jar DictionaryClient.jar <server-address> <server-port>");
-            System.exit(1);
-        }
-        serverHost = args[0];
-        try {
-            port = Integer.parseInt(args[1]);
-        } catch (NumberFormatException e) {
-            System.out.println("Fail to parse port number");
-        }
-    }
-
     private void checkArgs(List<String> args) {
         if (args.size() < 2) {
-            Utils.showErrorMsg("Command line should be in format:\n" +
-                    "java –jar DictionaryClient.jar <server-address> <server-port>");
+            Utils.showErrorMsg(Error.INVALID_CLIENT_ARGUMENT);
             System.exit(1);
         }
         serverHost = args.get(0);
         try {
             port = Integer.parseInt(args.get(1));
         } catch (NumberFormatException e) {
-            Utils.showErrorMsg("Fail to parse port number, please check the parameter you input!\n\n" +
-                    "Command line should be in format:\n" +
-                    "java –jar DictionaryClient.jar <server-address> <server-port>");
+            Utils.showErrorMsg(Error.INVALID_PORT);
             System.exit(1);
         }
     }
@@ -62,7 +45,7 @@ public class DictionaryClient extends Application {
         try {
             client = new ClientSocket(serverHost, port);
         } catch (ConnectException e) {
-            Utils.showErrorMsg("Could not connect to server " + serverHost + ":" + port);
+            Utils.showErrorMsg(Error.ERROR_CONNECTION);
             System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();
