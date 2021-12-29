@@ -35,9 +35,11 @@ public class ClientSocket {
         os = new DataOutputStream(socket.getOutputStream());
     }
 
-    public void receive() throws IOException {
-        String requeset = is.readUTF();
-        System.out.println(requeset);
+    public String receive() throws IOException {
+        String request = is.readUTF();
+        System.out.println(socket.getRemoteSocketAddress() + " received message:");
+        System.out.println(request);
+        return request;
     }
 
     public void sendRequest(String request) throws IOException {
@@ -47,5 +49,11 @@ public class ClientSocket {
     public void sendSearchRequest(String word) throws IOException {
         String request = "search:" + word;
         sendRequest(request);
+    }
+
+    public void close() throws IOException {
+        socket.close();
+        is.close();
+        os.close();
     }
 }

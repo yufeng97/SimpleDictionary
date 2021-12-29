@@ -3,6 +3,9 @@ package unimelb.comp90015.simpledictionary.server;
 import unimelb.comp90015.simpledictionary.ClientSocket;
 import unimelb.comp90015.simpledictionary.dictionary.Dictionary;
 
+import java.io.IOException;
+import java.net.SocketException;
+
 public class ConnectionHandler implements Runnable {
 
     private ClientSocket client;
@@ -15,6 +18,27 @@ public class ConnectionHandler implements Runnable {
 
     @Override
     public void run() {
-        System.out.println();
+        try {
+            while (true) {
+                String request = null;
+                try {
+                    request = client.receive();
+                } catch (SocketException e) {
+                    System.out.println("client disconnect");
+                    break;
+                } catch (IOException e) {
+                    System.out.println("disconnect by " + e.getMessage());
+                    break;
+                }
+
+            }
+            client.close();
+        } catch (IOException e) {
+            System.out.println("IOException " + e.getMessage());
+        }
+    }
+
+    private void parse(String request) {
+
     }
 }

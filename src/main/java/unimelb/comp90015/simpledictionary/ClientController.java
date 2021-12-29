@@ -24,7 +24,7 @@ public class ClientController {
         String text = searchBox.getText();
         System.out.println(text);
         try {
-            client.sendRequest("test message");
+            client.sendRequest(text);
         } catch (IOException e) {
             e.printStackTrace();
         }

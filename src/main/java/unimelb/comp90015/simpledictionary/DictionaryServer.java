@@ -2,6 +2,7 @@ package unimelb.comp90015.simpledictionary;
 
 import unimelb.comp90015.simpledictionary.dictionary.DictionaryFactory;
 import unimelb.comp90015.simpledictionary.dictionary.SimpleDictionary;
+import unimelb.comp90015.simpledictionary.server.ConnectionHandler;
 
 import javax.net.ServerSocketFactory;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class DictionaryServer {
                 Socket socket = serverSocket.accept();
                 System.out.println("Connected from: " + socket.getRemoteSocketAddress());
                 ClientSocket clientSocket = new ClientSocket(socket);
-                clientSocket.receive();
+                new Thread(new ConnectionHandler(clientSocket, simpleDictionary)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
