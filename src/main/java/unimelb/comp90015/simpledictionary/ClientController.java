@@ -1,20 +1,15 @@
 package unimelb.comp90015.simpledictionary;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class ClientController {
     @FXML
     private TextField searchBox;
-
-    @FXML
-    private Button searchBtn;
 
     @FXML
     private TextArea resultBox;
@@ -22,7 +17,7 @@ public class ClientController {
     private ClientSocket client;
 
     @FXML
-    protected void onSearchButtonClick() {
+    protected void onSearchBtnClick() {
         String word = searchBox.getText();
         System.out.println(word);
         try {
@@ -33,11 +28,23 @@ public class ClientController {
         try {
             String response = client.receive();
             System.out.println("client receive message: " + response);
-            resultBox.setText(response);
+            JSONObject responseJson = new JSONObject(response);
+            resultBox.setText(responseJson.optString("content"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    protected void onAddBtnClick() {
+
+    }
+
+    @FXML
+    protected void onUpdateBtnClick() {}
+
+    @FXML
+    protected void onDeleteBtnClick() {}
 
     public void setClient(ClientSocket socket) {
         client = socket;
@@ -46,15 +53,15 @@ public class ClientController {
     private String makeRequest(String action, String word) {
         JSONObject object = new JSONObject();
         object.put("type", action);
-        object.put("data", word);
+        object.put("word", word);
         return object.toString();
     }
 
     private String makeRequest(String action, String word, String description) {
         JSONObject object = new JSONObject();
         object.put("type", action);
-        Map<String, String> data = Map.of(word, description);
-        object.put("data", data);
+        object.put("word", word);
+        object.put("description", description);
         return object.toString();
     }
 

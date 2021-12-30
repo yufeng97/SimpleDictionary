@@ -36,10 +36,7 @@ public class ClientSocket {
     }
 
     public String receive() throws IOException {
-        String request = is.readUTF();
-        System.out.println(socket.getRemoteSocketAddress() + " received message:");
-        System.out.println(request);
-        return request;
+        return is.readUTF();
     }
 
     public void send(String message) throws IOException {

@@ -1,11 +1,9 @@
 package unimelb.comp90015.simpledictionary.server;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import unimelb.comp90015.simpledictionary.ClientSocket;
 import unimelb.comp90015.simpledictionary.dictionary.Dictionary;
-import unimelb.comp90015.simpledictionary.dictionary.WordNotFoundException;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -36,7 +34,13 @@ public class ConnectionHandler implements Runnable {
                 }
 
                 // parse request
-                String response = handleRequest(request);
+                String response = null;
+                try {
+                    response = handleRequest(request);
+                } catch (JSONException e) {
+                    System.out.println("Invalid message format");
+                    break;
+                }
                 client.send(response);
             }
             client.close();
@@ -48,38 +52,52 @@ public class ConnectionHandler implements Runnable {
     private String handleRequest(String request) {
         System.out.println(request);
 
-        JSONParser parser = new JSONParser();
-        JSONObject requestJson = null;
-        try {
-            requestJson = (JSONObject) parser.parse(request);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String response = null;
-        if (requestJson != null) {
-            String action = (String) requestJson.get("type");
+        JSONObject requestJson = new JSONObject(request);
+        String content = null;
+        String action = requestJson.optString("type");
+        String word = requestJson.optString("word");
+        String description = requestJson.optString("description");;
 
-            switch (action) {
-                case "query":
-                    String word = (String) requestJson.get("data");
-                    try {
-                        response = dictionary.query(word);
-                    } catch (WordNotFoundException e) {
-                        System.out.println("didn't find the word: " + word);
-                        response = "the word is not in the dictionary";
-                    }
-                    break;
-                case "add":
-                    break;
-                case "update":
-                    break;
-                case "remove":
-                    break;
-                default:
-                    System.out.println("Invalid action type");
-                    break;
-            }
+        JSONObject responseJson = new JSONObject();
+        boolean success = false;
+        switch (action) {
+            case "query":
+                content = dictionary.query(word);
+                if (content == null) {
+                    System.out.println("didn't find the word: " + word);
+                    content = "the word is not in the dictionary";
+                } else {
+                    success = true;
+                }
+                break;
+            case "remove":
+                success = dictionary.remove(word);
+                if (!success) {
+                    System.out.println("didn't find the word: " + word);
+                    content = "the word is not in the dictionary";
+                }
+                break;
+            case "add":
+                success = dictionary.add(word, description);
+                if (!success) {
+                    System.out.println("The word " + word + " has been added to dictionary");
+                    content = "the word is already in the dictionary";
+                }
+                break;
+            case "update":
+                success = dictionary.update(word, description);
+                if (!success) {
+                    System.out.println("didn't find the word: " + word);
+                    content = "the word is not in the dictionary";
+                }
+                break;
+            default:
+                System.out.println("Invalid action type");
+                content = "Invalid action type";
+                break;
         }
-        return response;
+        responseJson.put("success", success);
+        responseJson.put("content", content);
+        return responseJson.toString();
     }
 }

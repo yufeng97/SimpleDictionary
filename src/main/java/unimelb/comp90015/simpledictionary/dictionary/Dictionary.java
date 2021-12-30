@@ -2,11 +2,11 @@ package unimelb.comp90015.simpledictionary.dictionary;
 
 public interface Dictionary {
 
-    String query(String word) throws WordNotFoundException;
+    String query(String word);
 
-    boolean add(String word, String description) throws DuplicatedWordException;
+    boolean add(String word, String description);
 
-    boolean remove(String word) throws WordNotFoundException;
+    boolean remove(String word);
 
-    boolean update(String word, String description) throws WordNotFoundException, DuplicatedWordException;
+    boolean update(String word, String description);
 }

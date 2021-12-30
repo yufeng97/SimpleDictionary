@@ -1,15 +1,14 @@
 package unimelb.comp90015.simpledictionary.dictionary;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class SimpleDictionary implements Dictionary {
-    private String dictionaryFilePath;
+    private final String dictionaryFilePath;
     private JSONObject dictionary;;
     public SimpleDictionary(String dictionaryFilePath) {
         this.dictionaryFilePath = dictionaryFilePath;
@@ -17,37 +16,48 @@ public class SimpleDictionary implements Dictionary {
     }
 
     private void parseJson() {
-        System.out.println(new File("").getAbsolutePath());
-        JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(dictionaryFilePath)) {
-            dictionary = (JSONObject) parser.parse(reader);
+        try {
+            String content = new Scanner(new File(dictionaryFilePath)).useDelimiter("\\Z").next();
+            dictionary = new JSONObject(content);
             System.out.println(dictionary);
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not find the dictionary file. Please check the file path");
+            System.exit(1);
+        } catch (JSONException e) {
+            System.out.println("Fail to parse dictionary file. Please check the dictionary file and make sure is json format.");
+            System.exit(1);
         }
     }
 
     @Override
-    public String query(String word) throws WordNotFoundException {
-        String description = (String) dictionary.get(word);
-        if (description == null) {
-            throw new WordNotFoundException();
-        }
-        return description;
+    public String query(String word) {
+        return (String) dictionary.get(word);
     }
 
     @Override
     public boolean add(String word, String description) {
-        return false;
+        if (dictionary.has(word)) {
+            return false;
+        }
+        dictionary.put(word, description);
+        return true;
     }
 
     @Override
     public boolean remove(String word) {
-        return false;
+        if (!dictionary.has(word)) {
+            return false;
+        }
+        dictionary.remove(word);
+        return true;
     }
 
     @Override
     public boolean update(String word, String description) {
-        return false;
+        if (!dictionary.has(word)) {
+            return false;
+        }
+        dictionary.put(word, description);
+        return true;
     }
 }

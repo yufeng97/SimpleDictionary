@@ -5,7 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,13 +31,40 @@
                <Font size="18.0" />
             </font>
          </TextField>
-          <Button fx:id="searchBtn" onAction="#onSearchButtonClick" text="Search">
+          <Button fx:id="searchBtn" onAction="#onSearchBtnClick" text="Search">
             <font>
                <Font size="18.0" />
             </font>
          </Button>
       </children>
    </HBox>
+   <GridPane>
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <children>
+         <Button mnemonicParsing="false" onAction="#onAddBtnClick" text="Add" GridPane.halignment="RIGHT">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#onUpdateBtnClick" text="Update" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#onDeleteBtnClick" text="Delete" GridPane.columnIndex="2" GridPane.halignment="LEFT">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+      </children>
+   </GridPane>
    <TextArea fx:id="resultBox" prefHeight="200.0" prefWidth="200.0" wrapText="true">
       <VBox.margin>
          <Insets left="20.0" right="20.0" />
