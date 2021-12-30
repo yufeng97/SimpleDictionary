@@ -42,13 +42,8 @@ public class ClientSocket {
         return request;
     }
 
-    public void sendRequest(String request) throws IOException {
-        os.writeUTF(request);
-    }
-
-    public void sendSearchRequest(String word) throws IOException {
-        String request = "search:" + word;
-        sendRequest(request);
+    public void send(String message) throws IOException {
+        os.writeUTF(message);
     }
 
     public void close() throws IOException {

@@ -6,7 +6,7 @@ public interface Dictionary {
 
     boolean add(String word, String description) throws DuplicatedWordException;
 
-    boolean remove(String word) throws DuplicatedWordException;
+    boolean remove(String word) throws WordNotFoundException;
 
     boolean update(String word, String description) throws WordNotFoundException, DuplicatedWordException;
 }

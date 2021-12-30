@@ -28,8 +28,12 @@ public class SimpleDictionary implements Dictionary {
     }
 
     @Override
-    public String query(String word) {
-        return null;
+    public String query(String word) throws WordNotFoundException {
+        String description = (String) dictionary.get(word);
+        if (description == null) {
+            throw new WordNotFoundException();
+        }
+        return description;
     }
 
     @Override
