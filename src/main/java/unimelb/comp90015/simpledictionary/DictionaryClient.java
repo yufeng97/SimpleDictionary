@@ -20,14 +20,14 @@ public class DictionaryClient extends Application {
 
     private void checkArgs(List<String> args) {
         if (args.size() < 2) {
-            Utils.showErrorMsg(Error.INVALID_CLIENT_ARGUMENT);
+            Utils.showError(Error.INVALID_CLIENT_ARGUMENT);
             System.exit(1);
         }
         serverHost = args.get(0);
         try {
             port = Integer.parseInt(args.get(1));
         } catch (NumberFormatException e) {
-            Utils.showErrorMsg(Error.INVALID_PORT);
+            Utils.showError(Error.INVALID_PORT);
             System.exit(1);
         }
     }
@@ -38,19 +38,27 @@ public class DictionaryClient extends Application {
         List<String> unnamedParams = p.getUnnamed();
         checkArgs(unnamedParams);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("client-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(DictionaryClient.class.getResource("client-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 615, 400);
         stage.setScene(scene);
         ClientController controller = fxmlLoader.<ClientController>getController();
         try {
             client = new ClientSocket(serverHost, port);
         } catch (ConnectException e) {
-            Utils.showErrorMsg(Error.ERROR_CONNECTION);
+            Utils.showError(Error.ERROR_CONNECTION);
             System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();
         }
         controller.setClient(client);
         stage.show();
+
+        stage.setOnCloseRequest((event) -> {
+            try {
+                client.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

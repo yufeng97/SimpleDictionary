@@ -50,10 +50,10 @@ public class ConnectionHandler implements Runnable {
     }
 
     private String handleRequest(String request) {
-        System.out.println(request);
+        System.out.println("handle request: " + request + " from " + client.getRemoteHost());
 
         JSONObject requestJson = new JSONObject(request);
-        String content = null;
+        String content = "";
         String action = requestJson.optString("type");
         String word = requestJson.optString("word");
         String description = requestJson.optString("description");;
@@ -63,7 +63,7 @@ public class ConnectionHandler implements Runnable {
         switch (action) {
             case "query":
                 content = dictionary.query(word);
-                if (content == null) {
+                if (content.isEmpty()) {
                     System.out.println("didn't find the word: " + word);
                     content = "the word is not in the dictionary";
                 } else {
@@ -98,6 +98,7 @@ public class ConnectionHandler implements Runnable {
         }
         responseJson.put("success", success);
         responseJson.put("content", content);
+        System.out.println(responseJson);
         return responseJson.toString();
     }
 }

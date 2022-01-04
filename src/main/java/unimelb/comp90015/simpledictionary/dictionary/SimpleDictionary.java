@@ -31,7 +31,7 @@ public class SimpleDictionary implements Dictionary {
 
     @Override
     public String query(String word) {
-        return (String) dictionary.get(word);
+        return dictionary.optString(word);
     }
 
     @Override

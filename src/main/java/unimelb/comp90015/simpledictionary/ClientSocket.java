@@ -10,6 +10,8 @@ public class ClientSocket {
     private DataInputStream is;
     private DataOutputStream os;
     private Socket socket;
+    private String host;
+    private int port;
 
     /**
      * Socket for client
@@ -19,9 +21,10 @@ public class ClientSocket {
      */
     public ClientSocket(String host, int port) throws IOException {
         this.socket = new Socket(host, port);
+        this.port = port;
+        this.host = host;
         System.out.println("Connect to server " + host + ":" + port);
-        is = new DataInputStream(socket.getInputStream());
-        os = new DataOutputStream(socket.getOutputStream());
+        setStream(this.socket);
     }
 
     /**
@@ -31,8 +34,7 @@ public class ClientSocket {
      */
     public ClientSocket(Socket socket) throws IOException {
         this.socket = socket;
-        is = new DataInputStream(socket.getInputStream());
-        os = new DataOutputStream(socket.getOutputStream());
+        setStream(this.socket);
     }
 
     public String receive() throws IOException {
@@ -43,9 +45,24 @@ public class ClientSocket {
         os.writeUTF(message);
     }
 
+    public String getRemoteHost() {
+        return socket.getRemoteSocketAddress().toString();
+    }
+
     public void close() throws IOException {
         socket.close();
         is.close();
         os.close();
+    }
+
+    public void reconnect() throws IOException {
+        this.socket = new Socket(host, port);
+        System.out.println("Connect to server " + host + ":" + port);
+        setStream(this.socket);
+    }
+
+    private void setStream(Socket socket) throws IOException {
+        is = new DataInputStream(socket.getInputStream());
+        os = new DataOutputStream(socket.getOutputStream());
     }
 }
