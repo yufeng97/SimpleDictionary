@@ -78,15 +78,23 @@ public class ClientController implements Initializable {
 
     @FXML
     protected void onAddBtnClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-view.fxml"));
-        Parent parent = fxmlLoader.load();
-        AddWordController dialogController = fxmlLoader.<AddWordController>getController();
+//        URL resource = getClass().getResource("add-view.fxml");
+//        System.out.println(resource);
+//
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-view.fxml"));
+//        Parent parent = fxmlLoader.load();
+//        AddWordController dialogController = fxmlLoader.<AddWordController>getController();
+//
+//        Scene scene = new Scene(parent, 300, 200);
+//        Stage stage = new Stage();
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.setScene(scene);
+//        stage.showAndWait();
+        if (addWordDialog == null) {
+            addWordDialog = new WordDialog();
+        }
+        addWordDialog.showAndWait();
 
-        Scene scene = new Scene(parent, 300, 200);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
 
     }
 
