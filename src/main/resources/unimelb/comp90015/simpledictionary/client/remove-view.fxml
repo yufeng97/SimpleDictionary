@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="200.0" minWidth="400.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="unimelb.comp90015.simpledictionary.client.RemoveWordController">
+   <VBox alignment="CENTER" layoutX="131.0" layoutY="70.0" prefHeight="150.0" prefWidth="390.0"
+         AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+         AnchorPane.topAnchor="5.0">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Remove Word Dialog">
+         <font>
+            <Font size="20.0"/>
+         </font>
+      </Text>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+         <padding>
+            <Insets right="30.0"/>
+         </padding>
+         <Label alignment="CENTER_RIGHT" minWidth="80.0" text="Word">
+            <font>
+               <Font size="15.0"/>
+            </font>
+         </Label>
+         <TextField fx:id="removeWordText" promptText="Input word here" HBox.hgrow="ALWAYS">
+            <font>
+               <Font size="15.0"/>
+            </font>
+         </TextField>
+      </HBox>
+      <GridPane prefHeight="30.0" prefWidth="309.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+         </rowConstraints>
+         <opaqueInsets>
+            <Insets top="30.0"/>
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets/>
+         </VBox.margin>
+         <padding>
+            <Insets left="20.0" right="20.0" top="20.0"/>
+         </padding>
+         <Button mnemonicParsing="false" onAction="#onRemoveBtnClick" text="Add">
+            <font>
+               <Font size="15.0"/>
+            </font>
+         </Button>
+         <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancelBtnClick" text="Cancel"
+                 GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <font>
+               <Font size="15.0"/>
+            </font>
+         </Button>
+      </GridPane>
+   </VBox>
+</AnchorPane>

@@ -22,6 +22,7 @@ public class ClientController extends AbstractController implements Initializabl
 
     private WordDialog addWordDialog;
     private WordDialog updateWordDialog;
+    private WordDialog removeWordDialog;
 
     @FXML
     protected void onSearchBtnClick() {
@@ -30,28 +31,6 @@ public class ClientController extends AbstractController implements Initializabl
         if (!checkWord(word)) {
             return;
         }
-
-//        int retryTimes = 0;
-//        boolean doReconnect = false;
-//        boolean successConnect = false;
-//        while (retryTimes++ < 3) {
-//            // reconnect when client could not connect to server
-//            if (doReconnect) {
-//                try {
-//                    client.reconnect();
-//                } catch (IOException ex) {
-//                    System.out.println("Try to connect to " + client.getRemoteHost() + " the " + retryTimes + " times");
-//                }
-//            }
-//            try {
-//                client.send(makeQueryRequest(word));
-//            } catch (IOException e) {
-//                doReconnect = true;
-//                continue;
-//            }
-//            successConnect = true;
-//            break;
-//        }
 
         boolean successConnect = client.connectAndSend(makeQueryRequest(word));
         // fail to connect, then return
@@ -89,7 +68,12 @@ public class ClientController extends AbstractController implements Initializabl
     }
 
     @FXML
-    protected void onRemoveBtnClick() {}
+    protected void onRemoveBtnClick() throws IOException {
+        if (removeWordDialog == null) {
+            removeWordDialog = new WordDialog(client, WordDialogType.REMOVE);
+        }
+        removeWordDialog.showAndWait();
+    }
 
     private String makeQueryRequest(String word) {
         return makeRequest("query", word);

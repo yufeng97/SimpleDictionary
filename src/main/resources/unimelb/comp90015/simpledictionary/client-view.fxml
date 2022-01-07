@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="395.0" prefWidth="614.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimelb.comp90015.simpledictionary.client.ClientController">
+<VBox alignment="CENTER" prefHeight="395.0" prefWidth="614.0" spacing="20.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimelb.comp90015.simpledictionary.client.ClientController">
 
     <Label text="Multi-threaded Dictionary Client">
       <font>
@@ -20,50 +20,48 @@
       </font></Label>
    <HBox>
       <VBox.margin>
-         <Insets left="20.0" right="20.0" />
+         <Insets left="20.0" right="20.0"/>
       </VBox.margin>
-      <children>
-         <TextField fx:id="searchBox" promptText="input word to search" HBox.hgrow="SOMETIMES">
-            <HBox.margin>
-               <Insets right="10.0" />
-            </HBox.margin>
-            <font>
-               <Font size="18.0" />
-            </font>
-         </TextField>
-          <Button fx:id="searchBtn" onAction="#onSearchBtnClick" text="Search">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Button>
-      </children>
+      <TextField fx:id="searchBox" promptText="input word to search" HBox.hgrow="SOMETIMES">
+         <HBox.margin>
+            <Insets right="10.0"/>
+         </HBox.margin>
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </TextField>
+      <Button onAction="#onSearchBtnClick" text="Search">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
    </HBox>
    <GridPane>
       <columnConstraints>
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
       </columnConstraints>
       <rowConstraints>
-         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
       </rowConstraints>
-      <children>
-         <Button mnemonicParsing="false" onAction="#onAddBtnClick" text="Add" GridPane.halignment="RIGHT">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#onUpdateBtnClick" text="Update" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#onRemoveBtnClick" text="Remove" GridPane.columnIndex="2" GridPane.halignment="LEFT">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Button>
-      </children>
+      <Button mnemonicParsing="false" onAction="#onAddBtnClick" text="Add" GridPane.halignment="RIGHT">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#onUpdateBtnClick" text="Update" GridPane.columnIndex="1"
+              GridPane.halignment="CENTER">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#onRemoveBtnClick" text="Remove" GridPane.columnIndex="2"
+              GridPane.halignment="LEFT">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
    </GridPane>
    <TextArea fx:id="resultBox" prefHeight="200.0" prefWidth="200.0" wrapText="true">
       <VBox.margin>

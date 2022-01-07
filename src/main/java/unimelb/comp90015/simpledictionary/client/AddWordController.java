@@ -2,10 +2,8 @@ package unimelb.comp90015.simpledictionary.client;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.json.JSONObject;
 import unimelb.comp90015.simpledictionary.util.Error;
 import unimelb.comp90015.simpledictionary.util.Utils;
@@ -13,15 +11,12 @@ import unimelb.comp90015.simpledictionary.util.Utils;
 import java.io.IOException;
 import java.net.SocketException;
 
-public class AddWordController extends AbstractController {
+public class AddWordController extends DialogController {
     @FXML
     TextField addWordText;
 
     @FXML
     TextArea addWordDefinition;
-
-    @FXML
-    Button cancelBtn;
 
     @FXML
     protected void onAddBtnClick() {
@@ -54,12 +49,6 @@ public class AddWordController extends AbstractController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    protected void onCancelBtnClick() {
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
-        stage.close();
     }
 
     private String makeAddRequest(String word, String description) {

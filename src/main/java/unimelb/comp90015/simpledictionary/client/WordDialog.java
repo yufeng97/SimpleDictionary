@@ -16,11 +16,15 @@ public class WordDialog {
     private Stage stage;
 
     public WordDialog(ClientSocket client, WordDialogType type) throws IOException {
-        URL resource = null;
+        URL resource;
         if (type == WordDialogType.ADD) {
             resource = ClientController.class.getResource("add-view.fxml");
         } else if (type == WordDialogType.UPDATE) {
             resource = ClientController.class.getResource("update-view.fxml");
+        } else if (type == WordDialogType.REMOVE) {
+            resource = ClientController.class.getResource("remove-view.fxml");
+        } else {
+            resource = ClientController.class.getResource("add-view.fxml");
         }
         FXMLLoader fxmlLoader = new FXMLLoader(resource);
         Parent parent = fxmlLoader.load();

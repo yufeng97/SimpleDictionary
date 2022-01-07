@@ -2,16 +2,16 @@ package unimelb.comp90015.simpledictionary.server;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import unimelb.comp90015.simpledictionary.util.ClientSocket;
 import unimelb.comp90015.simpledictionary.dictionary.Dictionary;
+import unimelb.comp90015.simpledictionary.util.ClientSocket;
 
 import java.io.IOException;
 import java.net.SocketException;
 
 public class ConnectionHandler implements Runnable {
 
-    private ClientSocket client;
-    private Dictionary dictionary;
+    private final ClientSocket client;
+    private final Dictionary dictionary;
 
     public ConnectionHandler(ClientSocket client, Dictionary dictionary) {
         this.client = client;
@@ -22,7 +22,7 @@ public class ConnectionHandler implements Runnable {
     public void run() {
         try {
             while (true) {
-                String request = null;
+                String request;
                 try {
                     request = client.receive();
                 } catch (SocketException e) {
@@ -34,7 +34,7 @@ public class ConnectionHandler implements Runnable {
                 }
 
                 // parse request
-                String response = null;
+                String response;
                 try {
                     response = handleRequest(request);
                 } catch (JSONException e) {
@@ -56,7 +56,7 @@ public class ConnectionHandler implements Runnable {
         String content = "";
         String action = requestJson.optString("type");
         String word = requestJson.optString("word");
-        String description = requestJson.optString("description");;
+        String description = requestJson.optString("description");
 
         JSONObject responseJson = new JSONObject();
         boolean success = false;
