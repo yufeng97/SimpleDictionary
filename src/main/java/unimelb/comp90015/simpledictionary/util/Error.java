@@ -1,4 +1,4 @@
-package unimelb.comp90015.simpledictionary;
+package unimelb.comp90015.simpledictionary.util;
 
 public enum Error {
     INVALID_CLIENT_ARGUMENT("Invalid client argument", "command line should be in format:\n java –jar DictionaryClient.jar <server-address> <server-port>"),

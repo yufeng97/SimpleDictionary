@@ -5,9 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import unimelb.comp90015.simpledictionary.ClientController;
+import unimelb.comp90015.simpledictionary.util.ClientSocket;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -16,14 +15,18 @@ public class WordDialog {
     private Scene scene;
     private Stage stage;
 
-    public WordDialog() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ClientController.class.getResource("add-view.fxml"));
+    public WordDialog(ClientSocket client, WordDialogType type) throws IOException {
+        URL resource = null;
+        if (type == WordDialogType.ADD) {
+            resource = ClientController.class.getResource("add-view.fxml");
+        } else if (type == WordDialogType.UPDATE) {
+            resource = ClientController.class.getResource("update-view.fxml");
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(resource);
         Parent parent = fxmlLoader.load();
-        AddWordController dialogController = fxmlLoader.<AddWordController>getController();
-
-//        Scene scene = new Scene(parent, 300, 200);
-//        Stage stage = new Stage();
-        scene = new Scene(parent, 300, 200);
+        AbstractController dialogController = fxmlLoader.<AddWordController>getController();
+        dialogController.setClient(client);
+        scene = new Scene(parent, 300, 250);
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);

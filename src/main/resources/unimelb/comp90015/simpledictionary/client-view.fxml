@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="395.0" prefWidth="614.0" spacing="20.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimelb.comp90015.simpledictionary.ClientController">
+<VBox alignment="CENTER" prefHeight="395.0" prefWidth="614.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimelb.comp90015.simpledictionary.client.ClientController">
 
     <Label text="Multi-threaded Dictionary Client">
       <font>
@@ -58,7 +58,7 @@
                <Font size="18.0" />
             </font>
          </Button>
-         <Button mnemonicParsing="false" onAction="#onDeleteBtnClick" text="Delete" GridPane.columnIndex="2" GridPane.halignment="LEFT">
+         <Button mnemonicParsing="false" onAction="#onRemoveBtnClick" text="Remove" GridPane.columnIndex="2" GridPane.halignment="LEFT">
             <font>
                <Font size="18.0" />
             </font>

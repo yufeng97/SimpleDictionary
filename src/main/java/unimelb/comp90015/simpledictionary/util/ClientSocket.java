@@ -1,4 +1,4 @@
-package unimelb.comp90015.simpledictionary;
+package unimelb.comp90015.simpledictionary.util;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -43,6 +43,31 @@ public class ClientSocket {
 
     public void send(String message) throws IOException {
         os.writeUTF(message);
+    }
+
+    public boolean connectAndSend(String message) {
+        int retryTimes = 0;
+        boolean doReconnect = false;
+        boolean successConnect = false;
+        while (retryTimes++ < 3) {
+            // reconnect when client could not connect to server
+            if (doReconnect) {
+                try {
+                    reconnect();
+                } catch (IOException ex) {
+                    System.out.println("Try to connect to " + getRemoteHost() + " the " + retryTimes + " times");
+                }
+            }
+            try {
+                send(message);
+            } catch (IOException e) {
+                doReconnect = true;
+                continue;
+            }
+            successConnect = true;
+            break;
+        }
+        return successConnect;
     }
 
     public String getRemoteHost() {

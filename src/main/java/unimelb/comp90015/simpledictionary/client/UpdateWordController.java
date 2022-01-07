@@ -1,6 +1,5 @@
 package unimelb.comp90015.simpledictionary.client;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -13,24 +12,25 @@ import unimelb.comp90015.simpledictionary.util.Utils;
 import java.io.IOException;
 import java.net.SocketException;
 
-public class AddWordController extends AbstractController {
-    @FXML
-    TextField addWordText;
+public class UpdateWordController extends AbstractController {
 
     @FXML
-    TextArea addWordDefinition;
+    TextField updateWordText;
+
+    @FXML
+    TextArea updateWordDefinition;
 
     @FXML
     Button cancelBtn;
 
     @FXML
-    protected void onAddBtnClick() {
-        String word = addWordText.getText();
-        String definition = addWordDefinition.getText();
+    protected void onUpdateBtnClick() {
+        String word = updateWordText.getText();
+        String definition = updateWordDefinition.getText();
         if (!checkInput(word, definition)) {
             return;
         }
-        boolean successConnect = client.connectAndSend(makeAddRequest(word, definition));
+        boolean successConnect = client.connectAndSend(makeUpdateRequest(word, definition));
         // fail to connect, then return
         if (!successConnect) {
             Utils.showError(Error.ERROR_CONNECTION);
@@ -43,9 +43,9 @@ public class AddWordController extends AbstractController {
             JSONObject responseJson = new JSONObject(response);
             boolean success = responseJson.optBoolean("success");
             if (success) {
-                Utils.showInfo("Successfully add a word");
-                addWordText.clear();
-                addWordDefinition.clear();
+                Utils.showInfo("Successfully update a word");
+                updateWordText.clear();
+                updateWordDefinition.clear();
             } else {
                 Utils.showError(responseJson.optString("content"));
             }
@@ -56,13 +56,13 @@ public class AddWordController extends AbstractController {
         }
     }
 
+    private String makeUpdateRequest(String word, String definition) {
+        return makeRequest("update", word, definition);
+    }
+
     @FXML
     protected void onCancelBtnClick() {
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
-    }
-
-    private String makeAddRequest(String word, String description) {
-        return makeRequest("add", word, description);
     }
 }

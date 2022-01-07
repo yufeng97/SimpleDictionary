@@ -4,6 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import unimelb.comp90015.simpledictionary.client.ClientController;
+import unimelb.comp90015.simpledictionary.util.ClientSocket;
+import unimelb.comp90015.simpledictionary.util.Error;
+import unimelb.comp90015.simpledictionary.util.Utils;
 
 import java.io.IOException;
 import java.net.ConnectException;

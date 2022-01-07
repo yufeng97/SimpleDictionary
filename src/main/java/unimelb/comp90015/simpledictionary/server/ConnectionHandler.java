@@ -2,7 +2,7 @@ package unimelb.comp90015.simpledictionary.server;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import unimelb.comp90015.simpledictionary.ClientSocket;
+import unimelb.comp90015.simpledictionary.util.ClientSocket;
 import unimelb.comp90015.simpledictionary.dictionary.Dictionary;
 
 import java.io.IOException;

@@ -14,11 +14,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="250.0" minWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimelb.comp90015.simpledictionary.client.AddWordController">
+<AnchorPane minHeight="250.0" minWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimelb.comp90015.simpledictionary.client.UpdateWordController">
    <children>
       <VBox alignment="CENTER" layoutX="131.0" layoutY="70.0" prefHeight="225.0" prefWidth="390.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Word Dialog">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Update Word Dialog">
                <font>
                   <Font size="20.0" />
                </font></Text>
@@ -28,7 +28,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextField fx:id="addWordText" promptText="Input word here" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="updateWordText" promptText="Input word here" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="15.0" />
                      </font></TextField>
@@ -43,7 +43,7 @@
                      <font>
                         <Font size="15.0" />
                      </font></Label>
-                  <TextArea fx:id="addWordDefinition" minHeight="100.0" promptText="Input definition here" wrapText="true">
+                  <TextArea fx:id="updateWordDefinition" minHeight="100.0" promptText="Input definition here" wrapText="true">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -62,7 +62,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#onAddBtnClick" text="Add">
+                  <Button mnemonicParsing="false" onAction="#onUpdateBtnClick" text="Update">
                      <font>
                         <Font size="15.0" />
                      </font>

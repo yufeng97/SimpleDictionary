@@ -1,4 +1,4 @@
-package unimelb.comp90015.simpledictionary;
+package unimelb.comp90015.simpledictionary.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,5 +24,9 @@ public class Utils {
 
     public static void showWarning(String msg) {
         showMessage(AlertType.WARNING, "Warning", msg);
+    }
+
+    public static void showInfo(String msg) {
+        showMessage(AlertType.INFORMATION, "Info", msg);
     }
 }

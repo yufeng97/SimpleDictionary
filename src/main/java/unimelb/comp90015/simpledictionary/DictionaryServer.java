@@ -3,6 +3,7 @@ package unimelb.comp90015.simpledictionary;
 import unimelb.comp90015.simpledictionary.dictionary.DictionaryFactory;
 import unimelb.comp90015.simpledictionary.dictionary.SimpleDictionary;
 import unimelb.comp90015.simpledictionary.server.ConnectionHandler;
+import unimelb.comp90015.simpledictionary.util.ClientSocket;
 
 import javax.net.ServerSocketFactory;
 import java.io.IOException;
